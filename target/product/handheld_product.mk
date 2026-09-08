@@ -20,15 +20,22 @@
 # does, use base_product.mk).
 $(call inherit-product, $(SRC_TARGET_DIR)/product/media_product.mk)
 
-# /product packages
+# The stock AOSP browser shell, gallery and music player are stand-ins; a
+# product that ships real apps (Chrome, Photos, YouTube Music, ...) sets
+# TARGET_EXCLUDES_AOSP_MEDIA_APPS to leave them out.
+ifneq ($(TARGET_EXCLUDES_AOSP_MEDIA_APPS),true)
 PRODUCT_PACKAGES += \
     Browser2 \
+    Gallery2 \
+    Music
+endif
+
+# /product packages
+PRODUCT_PACKAGES += \
     Calendar \
     Camera2 \
     Contacts \
     DeskClock \
-    Gallery2 \
-    Music \
     preinstalled-packages-platform-handheld-product.xml \
     QuickSearchBox \
     SettingsIntelligence \
